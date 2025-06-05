@@ -1,0 +1,32 @@
+server:
+  port: 20001
+  servlet:
+    context-path: /A
+    encoding:
+      charset: UTF-8
+      force-response: true
+  error:
+    whitelabel.enabled: false
+    path: /common
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    fd.ng: info
+    hyren: info
+  pattern:
+    console: "[%-30.30C{1}][%-40.-40M][%-5level] %msg%xEx%n"
+
+spring:
+  application:
+    name: A
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  servlet:
+    multipart:
+      location: /data/project/hyren/hrsapp/dist_6/java/upfiles/a/
+  profiles:
+    active: @env@

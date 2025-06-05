@@ -1,0 +1,18 @@
+hyren:
+  fd:
+    db:
+      datasource:
+        - name: default
+          disabled: false
+          way: POOL
+          dbtype: POSTGRESQL
+          driver: org.postgresql.Driver
+          url: jdbc:postgresql://172.168.0.24:20090/hrsdxg_6_dev
+          username: hrsdxg
+          password: hrsdxg
+          minPoolSize: 10
+          maxPoolSize: 20
+          poolProperties:
+            cachePrepStmts: true
+            prepStmtCacheSize: 250
+            prepStmtCacheSqlLimit: 2048
