@@ -200,7 +200,8 @@ public class DFCalIncrementStageImpl extends AbstractJobStage {
         collectTableBean.setDb_type(db.getDbtype());
         Map<String, String> columnType = getColumnType(dsl_id, tableBean);
         log.info("------------------表" + collectTableBean.getTable_name() + "开始修改字段长度信息------------------" + columnType);
-        collectTableBean.getDb_type().databaseComment(db, collectTableBean.getStorage_table_name(), columns, columnType);
+        collectTableBean.getDb_type().databaseComment(db, collectTableBean.getStorage_table_name(),
+                collectTableBean.getTable_ch_name(),columns, columnType);
     }
 
     Map<String, String> getColumnType(long dsl_id, TableBean tableBean) {

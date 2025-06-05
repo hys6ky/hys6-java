@@ -82,7 +82,8 @@ public class JdbcDirectCalIncrementStageImpl extends AbstractJobStage {
                         log.info("=====storageTableName:{}======", storageTableName);
                         log.info("=====columns:{}======", JsonUtil.toJson(columns));
                         log.info("=====columnType:{}======", JsonUtil.toJson(columnType));
-                        collectTableBean.getDb_type().databaseComment(db, storageTableName, columns, columnType);
+                        collectTableBean.getDb_type().databaseComment(db, storageTableName,collectTableBean.getTable_ch_name(),
+                                columns, columnType);
                     } catch (Exception e) {
                         if (increase != null) {
                             increase.restore(collectTableBean.getStorage_type());

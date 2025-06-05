@@ -1,51 +1,37 @@
 package hyren.serv6.agent.run.flink.producer;
 
-import static org.junit.Assert.assertThrows;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpUtils;
-import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.api.connector.source.Source;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
-import org.apache.flink.runtime.state.CheckpointStorage;
-import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
-import org.apache.flink.shaded.netty4.io.netty.handler.codec.http.HttpUtil;
-import org.apache.flink.streaming.api.CheckpointingMode;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.sink.SinkFunction;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
 import com.ververica.cdc.connectors.db2.Db2Source;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
-import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.connectors.oracle.OracleSource;
 import com.ververica.cdc.connectors.postgres.PostgreSQLSource;
 import com.ververica.cdc.connectors.sqlserver.SqlServerSource;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
-import antlr.StringUtils;
 import fd.ng.core.utils.DateUtil;
 import fd.ng.core.utils.JsonUtil;
 import fd.ng.core.utils.StringUtil;
 import hyren.daos.base.utils.ActionResult;
 import hyren.serv6.agent.job.biz.utils.FileUtil;
-import hyren.serv6.agent.run.flink.FlinkErrorParams;
-import hyren.serv6.base.codes.JobExecuteState;
-import hyren.serv6.base.entity.TableCdcJobInfo;
 import hyren.serv6.commons.http.HttpClient;
 import hyren.serv6.commons.utils.AgentActionUtil;
 import hyren.serv6.commons.utils.constant.DataBaseType;
 import lombok.extern.slf4j.Slf4j;
-import scala.annotation.meta.param;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.connector.source.Source;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
+import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
+import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Properties;
 
 @Slf4j
 public class FlinkServiceImpl {
