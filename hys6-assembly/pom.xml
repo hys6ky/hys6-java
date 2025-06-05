@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>hys6-assembly</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>dist</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+              <finalName>hyren-serv6-java-${project.version}</finalName>
+              <!-- 追加assembly的id,设置为false不追加-->
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>src/main/assembly/assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <executions>
+              <execution>
+                <!-- 绑定到package生命周期 -->
+                <phase>package</phase>
+                <goals>
+                  <!-- 只运行一次 -->
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+  </profiles>
+
+</project>

@@ -1,0 +1,95 @@
+package hyren.serv6.base.codes;
+
+import hyren.daos.base.exception.SystemRuntimeException;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
+
+public enum DemandDState {
+
+    CaoGao("1", "草稿", "998", "需求单状态"), YiFaBu("2", "已发布", "998", "需求单状态"), WeiFaBu("3", "已响应", "998", "需求单状态"), HuLue("4", "忽略", "998", "需求单状态");
+
+    private final String code;
+
+    private final String value;
+
+    private final String catCode;
+
+    private final String catValue;
+
+    DemandDState(String code, String value, String catCode, String catValue) {
+        this.code = code;
+        this.value = value;
+        this.catCode = catCode;
+        this.catValue = catValue;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getCatCode() {
+        return catCode;
+    }
+
+    public String getCatValue() {
+        return catValue;
+    }
+
+    public static final String CodeName = "DemandDState";
+
+    public static String ofValueByCode(String code) {
+        for (DemandDState typeCode : DemandDState.values()) {
+            if (typeCode.getCode().equals(code)) {
+                return typeCode.value;
+            }
+        }
+        throw new SystemRuntimeException("根据[" + code + "]没有找到对应的代码项[DemandDState:需求单状态]");
+    }
+
+    public static DemandDState ofEnumByCode(String code) {
+        for (DemandDState typeCode : DemandDState.values()) {
+            if (typeCode.getCode().equals(code)) {
+                return typeCode;
+            }
+        }
+        throw new SystemRuntimeException("根据[" + code + "]没有找到对应的代码项[DemandDState:需求单状态]");
+    }
+
+    public static String getCodeByValue(String value) {
+        for (DemandDState typeCode : DemandDState.values()) {
+            if (typeCode.getValue().equals(value)) {
+                return typeCode.code;
+            }
+        }
+        throw new SystemRuntimeException("根据[" + value + "]没有找到对应的代码项[DemandDState:需求单状态]");
+    }
+
+    public static String ofCatValue() {
+        return DemandDState.values()[0].getCatValue();
+    }
+
+    public static String ofCatCode() {
+        return DemandDState.values()[0].getCatCode();
+    }
+
+    @Override
+    public String toString() {
+        throw new SystemRuntimeException("There‘s no need for you to !");
+    }
+
+    public static String Serialized() {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(HdfsFileType.class);
+            String obj = Base64.getEncoder().encodeToString(baos.toByteArray());
+            return obj;
+        } catch (Exception e) {
+            throw new SystemRuntimeException(e);
+        }
+    }
+}

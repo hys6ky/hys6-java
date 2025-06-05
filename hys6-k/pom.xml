@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>hys6-k</artifactId>
+
+  <properties>
+    <!-- jdk版本1.8 -->
+    <java.version>1.8</java.version>
+    <!-- maven-compiler-plugin插件版本，Java代码编译 -->
+    <maven.plugin.version>3.8.1</maven.plugin.version>
+    <!-- maven编译时指定编码UTF-8 -->
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    <!-- 项目统一字符集编码UTF-8 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- 项目统一字符集编码UTF-8 -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- 项目打包输出目录 -->
+    <final.out.dir>k</final.out.dir>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-commons</artifactId>
+    </dependency>
+
+    <!-- neo4j相关 -->
+    <dependency>
+      <groupId>org.neo4j.driver</groupId>
+      <artifactId>neo4j-java-driver</artifactId>
+      <version>4.2.0</version>
+    </dependency>
+
+    <!--    csv文件解析-->
+    <dependency>
+      <groupId>net.sf.supercsv</groupId>
+      <artifactId>super-csv</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>easyexcel</artifactId>
+      <version>2.2.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>5.8.16</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.shibing624</groupId>
+      <artifactId>similarity</artifactId>
+      <version>1.1.6</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}-${project.parent.version}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <executions>
+          <!-- create an executed jar file that contains all  the dependencies -->
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <!-- 服务启动主方法 -->
+          <mainClass>hyren.serv6.${final.out.dir}.AppMain</mainClass>
+          <!-- 指定打包的jar包输出路径 -->
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

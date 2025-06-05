@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>hys6-gateway</artifactId>
+
+  <properties>
+    <final.out.dir>gateway</final.out.dir>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-gateauth</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-commons</artifactId>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!-- 指定打包的jar包输出路径 -->
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>hys6-agent</artifactId>
+
+  <properties>
+    <final.out.dir>b</final.out.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-commons</artifactId>
+
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- 海云 hadoop 公共依赖包 本地测试时放开 -->
+    <!--    <dependency>-->
+    <!--      <groupId>hys6.ky</groupId>-->
+    <!--      <artifactId>hys6-hadoop-commons</artifactId>-->
+    <!--    </dependency>-->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.1</version>
+    </dependency>
+
+
+    <!-- flinkCDC-mysql -->
+    <dependency>
+      <groupId>com.ververica</groupId>
+      <artifactId>flink-connector-mysql-cdc</artifactId>
+      <version>2.3.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.27</version>
+      <scope>provided</scope>
+	</dependency>
+    <!-- flinkCDC-postgres -->
+    <dependency>
+      <groupId>com.ververica</groupId>
+      <artifactId>flink-connector-postgres-cdc</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <!-- flinkCDC-postgre -->
+    <dependency>
+      <groupId>com.ververica</groupId>
+      <artifactId>flink-connector-sqlserver-cdc</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <!-- flinkCDC-db2 -->
+    <dependency>
+      <groupId>com.ververica</groupId>
+      <artifactId>flink-connector-db2-cdc</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <!-- flinkCDC-oracle -->
+    <dependency>
+      <groupId>com.ververica</groupId>
+      <artifactId>flink-connector-oracle-cdc</artifactId>
+      <version>2.3.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.oracle.database.xml</groupId>
+          <artifactId>xmlparserv2</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-core</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-connector-base</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-clients</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-table-api-java</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-runtime-web</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-connector-files</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>hyren.serv6.agent.AppMain</mainClass>
+          <outputDirectory>
+            ${project.parent.basedir}/dist/${final.out.dir}/
+          </outputDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/collect-cdc-job-jars/</outputDirectory>
+              <excludeTransitive>false</excludeTransitive>
+              <excludeTypes>pom</excludeTypes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <finalName>${project.artifactId}-collect-cdc</finalName>
+          <archive>
+            <manifest>
+              <mainClass>hyren.serv6.agent.AppMain</mainClass>
+            </manifest>
+          </archive>
+          <excludes>
+            <exclude>application.yml</exclude>
+            <exclude>log4j2.xml</exclude>
+          </excludes>
+          <!-- 指定打包的jar包输出路径 -->
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- 开启b模块Hadoop公共模块 -->
+  <profiles>
+    <profile>
+      <id>enable-hadoop-dependency</id>
+      <dependencies>
+        <dependency>
+          <groupId>hys6.ky</groupId>
+          <artifactId>hys6-hadoop-commons</artifactId>
+          <version>6.1</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>

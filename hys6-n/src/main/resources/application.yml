@@ -1,0 +1,46 @@
+server:
+  port: 20014
+  servlet:
+    context-path: /N
+    encoding:
+      charset: UTF-8
+      force-response: true
+  error:
+    whitelabel.enabled: false
+    path: /common
+
+spring:
+  application:
+    name: N
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      location: /tmp/upfiles/temp/ss/
+
+logging:
+  level:
+    root: INFO
+    hyren.daos: INFO
+logging.pattern.console: "%d{yyyy.MM.dd 'at' HH:mm:ss.SSS z} %-5level %class{36} %L %M - %msg%xEx%n"
+
+
+hyren:
+  fd:
+    db:
+      datasource:
+        -
+          name: default
+          disabled: false
+          way: POOL
+          dbtype: POSTGRESQL
+          driver: org.postgresql.Driver
+          url: jdbc:postgresql://172.168.0.24:20090/hrsdxg_6_test
+          username: hrsdxg
+          password: hrsdxg
+          minPoolSize: 10
+          maxPoolSize: 20
+          poolProperties:
+            cachePrepStmts: true
+            prepStmtCacheSize: 250
+            prepStmtCacheSqlLimit: 2048

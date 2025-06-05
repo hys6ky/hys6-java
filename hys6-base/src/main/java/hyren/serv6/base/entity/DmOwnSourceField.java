@@ -1,0 +1,78 @@
+package hyren.serv6.base.entity;
+
+import io.swagger.annotations.ApiModel;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import fd.ng.db.entity.anno.Table;
+import io.swagger.annotations.ApiModelProperty;
+import hyren.serv6.base.entity.fdentity.ProEntity;
+import lombok.Data;
+import java.math.BigDecimal;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
+
+@Data
+@ApiModel("数据源表字段")
+@Table(tableName = "dm_own_source_field")
+public class DmOwnSourceField extends ProEntity {
+
+    private static final long serialVersionUID = 321566870187324L;
+
+    private transient static final Set<String> __PrimaryKeys;
+
+    public static final String TableName = "dm_own_source_field";
+
+    public static boolean isPrimaryKey(String name) {
+        return __PrimaryKeys.contains(name);
+    }
+
+    public static Set<String> getPrimaryKeyNames() {
+        return __PrimaryKeys;
+    }
+
+    static {
+        Set<String> __tmpPKS = new HashSet<>();
+        __tmpPKS.add("own_field_id");
+        __PrimaryKeys = Collections.unmodifiableSet(__tmpPKS);
+    }
+
+    @ApiModelProperty(value = "", required = true)
+    protected Long own_field_id;
+
+    @ApiModelProperty(value = "", required = true)
+    protected Long own_source_table_id;
+
+    @ApiModelProperty(value = "", required = true)
+    @Size(min = 1, max = 512, message = "")
+    @NotBlank(message = "")
+    protected String field_name;
+
+    @ApiModelProperty(value = "", required = true)
+    @Size(min = 1, max = 512, message = "")
+    @NotBlank(message = "")
+    protected String field_type;
+
+    @ApiModelProperty(value = "", required = false)
+    protected String remark;
+
+    public void setOwn_field_id(String own_field_id) {
+        if (fd.ng.core.utils.StringUtil.isNotBlank(own_field_id)) {
+            this.own_field_id = new Long(own_field_id);
+        }
+    }
+
+    public void setOwn_field_id(Long own_field_id) {
+        this.own_field_id = own_field_id;
+    }
+
+    public void setOwn_source_table_id(String own_source_table_id) {
+        if (fd.ng.core.utils.StringUtil.isNotBlank(own_source_table_id)) {
+            this.own_source_table_id = new Long(own_source_table_id);
+        }
+    }
+
+    public void setOwn_source_table_id(Long own_source_table_id) {
+        this.own_source_table_id = own_source_table_id;
+    }
+}

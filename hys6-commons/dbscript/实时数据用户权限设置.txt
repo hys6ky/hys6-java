@@ -1,0 +1,74 @@
+--------------oracle-------------------
+1、启用日志归档
+	alter system set db_recovery_file_dest_size = 50G;
+ 	alter system set db_recovery_file_dest = '/home/oracle/oracle-data' scope=spfile;
+ 	shutdown immediate;
+ 	startup mount;
+ 	alter database archivelog;
+ 	alter database open;
+ 2、检查日志归档是否开启，
+ 	archive log list;
+ 3、创建用户
+ 	CREATE USER flinkuser IDENTIFIED BY flinkuser DEFAULT TABLESPACE LOGMINER_TBS QUOTA UNLIMITED ON LOGMINER_TBS;
+ 4、赋权限
+ 	 GRANT CONNECT,RESOURCE,DBA TO flinkuser;
+ 	 GRANT CREATE SESSION TO flinkuser;
+	 GRANT SELECT ON V_$DATABASE to flinkuser;
+	 GRANT FLASHBACK ANY TABLE TO flinkuser;
+	 GRANT SELECT ANY TABLE TO flinkuser;
+	 GRANT SELECT_CATALOG_ROLE TO flinkuser;
+	 GRANT EXECUTE_CATALOG_ROLE TO flinkuser;
+	 GRANT SELECT ANY TRANSACTION TO flinkuser;
+	 GRANT EXECUTE ON SYS.DBMS_LOGMNR TO flinkuser;
+	 GRANT SELECT ON V_$LOGMNR_CONTENTS TO flinkuser;
+	 GRANT CREATE TABLE TO flinkuser;
+	 GRANT LOCK ANY TABLE TO flinkuser;
+	 GRANT ALTER ANY TABLE TO flinkuser;
+	 GRANT CREATE SEQUENCE TO flinkuser;
+	 GRANT EXECUTE ON DBMS_LOGMNR TO flinkuser;
+	 GRANT EXECUTE ON DBMS_LOGMNR_D TO flinkuser;
+	 GRANT SET CONTAINER TO flinkuser CONTAINER=ALL;
+	 GRANT LOGMINING TO flinkuser CONTAINER=ALL;
+	 GRANT SELECT ON V_$LOG TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$LOG_HISTORY TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$LOGMNR_LOGS TO flinkuser CONTAINER=ALL; 
+	 GRANT SELECT ON V_$LOGMNR_CONTENTS TO flinkuser CONTAINER=ALL;
+  	 GRANT SELECT ON V_$LOGMNR_PARAMETERS TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$LOGFILE TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$ARCHIVED_LOG TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$ARCHIVE_DEST_STATUS TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$TRANSACTION TO flinkuser CONTAINER=ALL;     
+     GRANT SELECT ON V_$MYSTAT TO flinkuser CONTAINER=ALL; 
+     GRANT SELECT ON V_$STATNAME TO flinkuser CONTAINER=ALL;
+
+-------------------mysql--------------------
+1、检查日志是否开启
+	mysqlshow variables like log_bin
+2、启用日志归档
+	在/etc/my.cnf文件中添加
+	log-bin=mysql-bin
+	binlog_format=mixed 
+	binlog-do-db=test #只开启某个库的日志
+3、创建用户
+	create user 'flinkuser'@'%' identified by 'flinkuser';
+4、赋权限	
+	grant select, show databases, replication slave, replication client on *.* to 'flinkuser' identified by 'flinkuser';
+---------------postgresql-------------------
+1、启用日志归档
+	修改配置文件postgresql.conf
+	wal_level=hot_standby      
+    archive_mode =on
+    archive_command='DATE=`date +%Y%m%d`;DIR="/home/postgres/arch/$DATE";(test -d $DIR || mkdir -p $DIR)&& cp %p $DIR/%f' ----参数值是一个脚本，或一个命令，PG通过执行它来完成归档动作
+    创建归档日志目录
+    mkdir  -p /home/postgres/arch        
+  	chown -R postgres:postgres /home/postgres/arch
+2、检查日志是否开启
+	checkpoint；
+	select pg_switch_xlog();
+3、创建用户
+	create user flinkuser with password 'flinkuser';
+  	alter role flinkuser replication;
+4、赋权限
+	grant usage on database test to flinkuser;
+	grant select on all tables in schema public to flinkuser;
+  

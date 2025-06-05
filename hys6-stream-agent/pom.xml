@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <artifactId>hys6-stream-agent</artifactId>
+
+  <properties>
+    <final.out.dir>b</final.out.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-commons</artifactId>
+    </dependency>
+
+    <!-- 海云 hadoop 公共依赖包 本地测试时放开 -->
+    <!--    <dependency>-->
+    <!--      <groupId>hys6.ky</groupId>-->
+    <!--      <artifactId>hys6-hadoop-commons</artifactId>-->
+    <!--    </dependency>-->
+
+    <!-- kafka 相关 -->
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_2.11</artifactId>
+      <version>${kafka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-streams</artifactId>
+      <version>${kafka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>${kafka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.42.v20210604</version>
+    </dependency>
+    <dependency>
+      <groupId>io.confluent</groupId>
+      <artifactId>kafka-schema-registry-client</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>hyren.serv6.stream.agent.AppMain</mainClass>
+          <!-- 指定打包的jar包输出路径 -->
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

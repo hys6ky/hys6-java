@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  hyren.serv6.commons.config.webconfig.WebinfoConfig,\
+  hyren.serv6.commons.config.httpconfig.HttpServerConfig,\
+  hyren.serv6.commons.utils.stream.KafkaMonitorManager,\
+  hyren.serv6.commons.utils.stream.ZKPoolUtils,\
+  hyren.serv6.commons.http.RestTemplateConfig,\
+  hyren.serv6.commons.utils.stream.SqlSearchFromKafka

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>hys6-base</artifactId>
+
+  <properties>
+    <final.out.dir>base</final.out.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.belerweb</groupId>
+      <artifactId>pinyin4j</artifactId>
+      <version>2.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>0.1.55</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.2.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>hyren.serv6.base.AppMain</mainClass>
+            </manifest>
+          </archive>
+          <excludes>
+            <exclude>application.yml</exclude>
+            <exclude>log4j2.xml</exclude>
+            <exclude>udf.func</exclude>
+            <exclude>spark/**</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

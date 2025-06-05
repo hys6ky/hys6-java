@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>hys6.ky</groupId>
+    <artifactId>hys6-java</artifactId>
+    <version>6.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>hys6-trigger</artifactId>
+
+  <properties>
+    <final.out.dir>c</final.out.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>hyren.daos</groupId>
+      <artifactId>hyren-daos-starter-bizpot</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-engine</artifactId>
+      <version>5.2.0.0-209</version>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-core</artifactId>
+      <version>5.2.0.0-209</version>
+    </dependency>
+
+
+    <!-- JVM内存级分布式缓存 -->
+    <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!-- 指定打包的jar包输出路径 -->
+          <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

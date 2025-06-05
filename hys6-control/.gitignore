@@ -1,0 +1,65 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+/.idea/
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+*.json
+*.zip
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+# 开发中搞进来的各种自己用的文件
+TODO
+# office 缓存文件
+~$*.*
+resources
+log
+/hyren-serv6/
+/.gradle/
+/conf/
+/storeConfigPath/
+/CommunicationError/
+/mapDb/
+/dirFile/
+/jobInfo/
+/tempresources/
+/docx/
+/tessdata/
+/config/
+/metastore_db/
+/hyren-serv6-docs/.back_hyren-db-master/
+/sparkAppConfDir/
+/sparkAppRunLogs/
+/derby.log

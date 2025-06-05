@@ -1,0 +1,217 @@
+<assembly>
+  <id>dist</id>
+  <!-- 打包结果压缩格式 -->
+  <formats>
+    <format>tar.gz</format>
+    <!--<format>zip</format>-->
+  </formats>
+  <!-- 在最终存档中包含一个基本目录 -->
+  <includeBaseDirectory>true</includeBaseDirectory>
+  <!-- 设置生成程序集存档的基本目录 如果没有设置或者没写都会导致没有基本目录 默认不写取 finalName -->
+  <!--<baseDirectory>your-base-dir-name</baseDirectory>-->
+
+  <!--  &lt;!&ndash; 打包模块设置 &ndash;&gt;-->
+  <!--  <moduleSets>-->
+  <!--    <moduleSet>-->
+  <!--      &lt;!&ndash; 如果设置为true,插件将包括当前所有项目,以便在此ModuleSet中处理 这些将受包含/排除规则的约束 默认值是false  &ndash;&gt;-->
+  <!--      <useAllReactorProjects>true</useAllReactorProjects>-->
+  <!--      &lt;!&ndash; 如果设置为false,插件将排除这个模块集中的子模块 否则,它将处理所有子模块,每个主题包含/排除规则  &ndash;&gt;-->
+  <!--      <includeSubModules>true</includeSubModules>-->
+  <!--      <includes>-->
+  <!--        <include>hyren.serv6:hyren-serv6-base</include>-->
+  <!--      </includes>-->
+  <!--      <binaries>-->
+  <!--        <outputDirectory>xxxlibs</outputDirectory>-->
+  <!--        <unpack>false</unpack>-->
+  <!--      </binaries>-->
+  <!--    </moduleSet>-->
+  <!--  </moduleSets>-->
+
+  <dependencySets>
+    <!--    &lt;!&ndash; provided &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <outputDirectory>lib</outputDirectory>-->
+    <!--      <scope>provided</scope>-->
+    <!--    </dependencySet>-->
+    <!--    &lt;!&ndash; system &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <outputDirectory>lib</outputDirectory>-->
+    <!--      <scope>system</scope>-->
+    <!--    </dependencySet>-->
+    <!--    &lt;!&ndash; runtime &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <useProjectAttachments>true</useProjectAttachments>-->
+    <!--      <useTransitiveDependencies>true</useTransitiveDependencies>-->
+    <!--      <outputDirectory>lib</outputDirectory>-->
+    <!--      <scope>runtime</scope>-->
+    <!--      <excludes>-->
+    <!--        <exclude>hyren.daos:*:jar</exclude>-->
+    <!--        <exclude>hyren.serv6:*:jar</exclude>-->
+    <!--        <exclude>org.springframework:*:jar</exclude>-->
+    <!--        <exclude>org.springframework.*:*:jar</exclude>-->
+    <!--      </excludes>-->
+    <!--    </dependencySet>-->
+    <!--    &lt;!&ndash; hyren.daos &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <includes>-->
+    <!--        <include>hyren.daos:*:jar</include>-->
+    <!--      </includes>-->
+    <!--      <outputDirectory>hyrenlibs</outputDirectory>-->
+    <!--    </dependencySet>-->
+    <!--    &lt;!&ndash; hyren.serv6 &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <includes>-->
+    <!--        <include>hyren.serv6:*:jar</include>-->
+    <!--      </includes>-->
+    <!--      <outputDirectory>hyrenlibs</outputDirectory>-->
+    <!--    </dependencySet>-->
+    <!--    &lt;!&ndash; springframework &ndash;&gt;-->
+    <!--    <dependencySet>-->
+    <!--      <unpack>false</unpack>-->
+    <!--      <useProjectArtifact>false</useProjectArtifact>-->
+    <!--      <includes>-->
+    <!--        <include>org.springframework:*:jar</include>-->
+    <!--        <include>org.springframework.*:*:jar</include>-->
+    <!--      </includes>-->
+    <!--      <outputDirectory>springlibs</outputDirectory>-->
+    <!--    </dependencySet>-->
+    <!-- jdbc -->
+    <dependencySet>
+      <unpack>false</unpack>
+      <useProjectArtifact>false</useProjectArtifact>
+      <includes>
+        <include>org.postgresql:*:jar</include>
+        <include>com.oracle.database.*:*:jar</include>
+        <include>mysql:*:jar</include>
+      </includes>
+      <outputDirectory>jdbc</outputDirectory>
+    </dependencySet>
+
+  </dependencySets>
+
+  <fileSets>
+    <!-- 拷贝模块输出包到打根目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/dist</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <outputDirectory/>
+    </fileSet>
+
+    <!-- 拷贝README.md文件到包根目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}</directory>
+      <includes>
+        <include>README.md</include>
+      </includes>
+      <outputDirectory/>
+    </fileSet>
+
+    <!-- 拷贝web启动脚本到打包根目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/sbin</directory>
+      <includes>
+        <include>web-app-operation.sh</include>
+        <include>web-app-operation-all.sh</include>
+      </includes>
+      <outputDirectory/>
+    </fileSet>
+
+    <!-- 拷贝采集agent模块启动脚本到b模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/sbin</directory>
+      <includes>
+        <include>agent-operation.sh</include>
+      </includes>
+      <outputDirectory>b</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝采集agent模块运行作业脚本到b模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/bin</directory>
+      <includes>
+        <include>collect-cdc-job-consumer-command.sh</include>
+        <include>collect-cdc-job-producer-command.sh</include>
+        <include>collect-job-command.sh</include>
+        <include>distribution-job.sh</include>
+        <include>ftp-job-command.sh</include>
+        <include>m-job.sh</include>
+        <include>receive-job.sh</include>
+        <include>semistructured-job-command.sh</include>
+        <include>unstructured-job-command.sh</include>
+      </includes>
+      <outputDirectory>b</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝流agent模块启动脚本到b模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/sbin</directory>
+      <includes>
+        <include>stream-agent-operation.sh</include>
+      </includes>
+      <outputDirectory>b</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝流agent模块运行作业脚本到b模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/bin</directory>
+      <includes>
+        <include>commandExecut.sh</include>
+        <include>stream-consumer-command.sh</include>
+        <include>stream-producer-command.sh</include>
+      </includes>
+      <outputDirectory>b</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝作业调度模块启动脚本到c模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/sbin</directory>
+      <includes>
+        <include>control-operation.sh</include>
+        <include>trigger-operation.sh</include>
+      </includes>
+      <outputDirectory>c</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝加工模块作业运行脚本到h模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/bin</directory>
+      <includes>
+        <include>process-job-command.sh</include>
+        <include>process-flink-job-command.sh</include>
+      </includes>
+      <outputDirectory>h</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝管控模块作业运行脚本到k模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/bin</directory>
+      <includes>
+        <include>quality_manage.sh</include>
+        <include>standard_job.sh</include>
+      </includes>
+      <outputDirectory>k</outputDirectory>
+    </fileSet>
+
+    <!-- 拷贝元数据模块作业运行脚本到k模块目录下 -->
+    <fileSet>
+      <directory>${project.parent.basedir}/bin</directory>
+      <includes>
+        <include>m-job.sh</include>
+      </includes>
+      <outputDirectory>m</outputDirectory>
+    </fileSet>
+  </fileSets>
+
+</assembly>
