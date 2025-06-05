@@ -1,4 +1,14 @@
 # Compiled class file
+
+# IntelliJ IDEA 忽略规则
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+gen/
+
+
 *.class
 
 # Log file
