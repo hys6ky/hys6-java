@@ -36,8 +36,8 @@
     </dependency>
 
     <dependency>
-      <groupId>hyren.serv6</groupId>
-      <artifactId>hyren-serv6-base</artifactId>
+      <groupId>hys6.ky</groupId>
+      <artifactId>hys6-base</artifactId>
     </dependency>
 
   </dependencies>
