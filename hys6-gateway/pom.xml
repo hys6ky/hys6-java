@@ -29,6 +29,16 @@
       <groupId>hys6.ky</groupId>
       <artifactId>hys6-commons</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>5.2.16.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>hyren.serv6</groupId>
+      <artifactId>hyren-serv6-base</artifactId>
+    </dependency>
 
   </dependencies>
   <build>
@@ -40,6 +50,52 @@
           <!-- 指定打包的jar包输出路径 -->
           <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/</outputDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies-hyren</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.parent.basedir}/dist/hyrenlibs/</outputDirectory>
+              <includeGroupIds>${hyren.group.ids}</includeGroupIds>
+              <excludeArtifactIds>hyren-daos-starter-gateauth,hyren-daos-gateauth</excludeArtifactIds>
+              <excludeTransitive>false</excludeTransitive>
+              <excludeTypes>pom</excludeTypes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-dependencies-hyren-gateway</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/libs/</outputDirectory>
+              <includeArtifactIds>hyren-daos-starter-gateauth,hyren-daos-gateauth</includeArtifactIds>
+              <excludeTransitive>false</excludeTransitive>
+              <excludeTypes>pom</excludeTypes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-dependencies-hyren-gateway-spring-cloud</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.parent.basedir}/dist/${final.out.dir}/libs/</outputDirectory>
+              <includeGroupIds>${spring.cloud}</includeGroupIds>
+              <excludeTransitive>false</excludeTransitive>
+              <excludeTypes>pom</excludeTypes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
